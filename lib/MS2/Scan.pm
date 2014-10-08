@@ -82,10 +82,16 @@ has 'Mass' => (
     isa =>  'Str',
     );
 
-has 'Data' => (
+has 'DataMZ' => (
     is  =>  'rw',
-    isa =>  'HashRef',
-    default => sub { {} },
+    isa =>  'ArrayRef',
+    default => sub { [] },
+    );
+
+has 'DataIntensity' => (
+    is  =>  'rw',
+    isa =>  'ArrayRef',
+    default =>  sub { [] },
     );
 
 sub parse {
@@ -140,14 +146,19 @@ sub parse {
 
     } elsif ( $linepart[0] =~ m/^\d/ ) {
 
-        my $data = $self->Data;
-        my %data = %{$data};
+        my $dataMZ = $self->DataMZ;
+        my @dataMZ = @{$dataMZ};
+
+        my $dataInt = $self->DataIntensity;
+        my @dataInt = @{$dataInt};
 
         my @datapart = split(/\s+/, $line);
         
-        $data{$datapart[0]} = $datapart[1];
+        push(@dataMZ, $datapart[0]);
+        push(@dataInt, $datapart[1]);
 
-        $self->Data(\%data);
+        $self->DataMZ(\@dataMZ);
+        $self->DataIntensity(\@dataInt);
     }
 
 }
