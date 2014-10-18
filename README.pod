@@ -4,7 +4,7 @@ MS2::Parser - A parser for MS2 files, commonly used in mass spectrometry based p
 
 =head1 VERSION
 
-Version 0.061'
+Version 0.062'
 
 =head1 SYNOPSIS
 
@@ -34,7 +34,7 @@ Rapid Commun. Mass Spectrom. 18, 2162-2168 (2004).
 
 This is the main function to call. The parse method recieves a path to the ms2 file
 and returns a Moose object containing two attributes; A MS2::Header (header info) 
-and a list of MS2::Scan (scan info).
+and an array of MS2::Scan (scan info).
 
     $ms->parse("file.ms2");
 
@@ -107,8 +107,8 @@ The MS2 object has a MS2::Scan object list with the following structure:
             SecondScan         000006
         }
 
-The Data attribute is represented by two distinct array references; DataMZ and DataIntensity.
-Both arrays are used to maintain the data order.
+Peak data is represented by two distinct array references; DataMZ and DataIntensity.
+Both arrays are used to maintain the original peak order.
 
 
 =head1 AUTHOR
